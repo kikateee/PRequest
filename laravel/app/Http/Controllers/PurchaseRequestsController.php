@@ -19,6 +19,7 @@ class PurchaseRequestsController extends Controller
     public function index()
     {
         $purchaserequests = PurchaseRequest::all();
+        // $purchaserequests = PurchaseRequest::orderBy('date', 'desc')->paginate(5);
         return view('purchaserequests.index')->with('purchaserequests', $purchaserequests);
         // return view('purchaserequests.index');
     }
@@ -66,7 +67,9 @@ class PurchaseRequestsController extends Controller
         $purchaserequest->approved_by = $request->input('approved_by');
         $purchaserequest->save();
 
-        return redirect('/purchaserequests')->with('success', 'Request Created');
+        $insertedId = $purchaserequest->id;
+
+        return redirect('/purchaserequests'.$insertedId)->with('success', 'Request Created');
     }
 
     /**
