@@ -5,11 +5,11 @@
     {!! Form::open(['action' => 'PurchaseRequestsController@store', 'method' => 'POST']) !!}
         <div class="form-group">
             {{Form::label('costcenter_id', 'Cost Center')}}
-            {{Form::text('costcenter_id', '', ['placeholder' => 'Cost Center' ,'class' => 'form-control'])}}
+            {{Form::select('costcenter_id', $costcenters, null, ['placeholder' => 'Cost Center' ,'class' => 'form-control'])}}
         </div>
         <div class="form-group">
             {{Form::label('fundsource_id', 'Fund Source')}}
-            {{Form::text('fundsource_id', '', ['placeholder' => 'Fund Source' ,'class' => 'form-control'])}}
+            {{Form::select('fundsource_id', $fundsources, null, ['placeholder' => 'Fund Source' ,'class' => 'form-control'])}}
         </div>
         <div class="form-group">
             {{Form::label('sai_number', 'SAI Number')}}
@@ -31,5 +31,6 @@
             {{Form::label('approved_by', 'Approved By')}}
             {{Form::text('approved_by', '', ['placeholder' => 'Approved By' ,'class' => 'form-control'])}}
         </div>
+        {{Form::submit('Submit', ['class' => 'btn btn-success float-right'])}}
     {!! Form::close() !!}
 @endsection

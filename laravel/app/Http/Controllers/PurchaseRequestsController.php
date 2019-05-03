@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\PurchaseRequest;
 use App\PurchaseRequestDetail;
+use App\CostCenter;
+use App\FundSource;
 
 class PurchaseRequestsController extends Controller
 {
@@ -27,7 +29,10 @@ class PurchaseRequestsController extends Controller
      */
     public function create()
     {
-        return view('purchaserequests.create');
+        $costcenters = CostCenter::all(['id', 'costcenter_name']);
+        $fundsources = FundSource::all(['id', 'description']);
+        // $purchaserequests =['' => 'Please Select a Cost Center'] + CostCenter::lists('costcenter_name','id')->toArray();
+        return view('purchaserequests.create')->with('costcenters', $costcenters)->with('fundsources', $fundsources);
     }
 
     /**
@@ -38,7 +43,27 @@ class PurchaseRequestsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'costcenter_id' => 'required',
+            'fundsource_id' => 'required',
+            'date' => 'required',
+            'purpose' => 'required',
+            'request_origin' => 'required',
+            'approved_by' => 'required'
+        ]);
+
+        // Create Request
+        $purchaserequest = new PurchaseRequest;
+        $purchaserequest->costcenter_id = $request->input('costcenter_id');
+        $purchaserequest->fundsource_id = $request->input('fundsource_id');
+        $purchaserequest->sai_number = $request->input('sai_number');
+        $purchaserequest->date = $request->input('date');
+        $purchaserequest->purpose = $request->input('purpose');
+        $purchaserequest->request_origin = $request->input('request_origin');
+        $purchaserequest->approved_by = $request->input('approved_by');
+        $purchaserequest->save();
+
+        return redirect('/purchaserequests')->with('success', 'Request Created');
     }
 
     /**
