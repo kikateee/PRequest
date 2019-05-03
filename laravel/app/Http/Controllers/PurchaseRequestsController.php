@@ -7,6 +7,7 @@ use App\PurchaseRequest;
 use App\PurchaseRequestDetail;
 use App\CostCenter;
 use App\FundSource;
+use App\Item;
 
 class PurchaseRequestsController extends Controller
 {
@@ -31,8 +32,9 @@ class PurchaseRequestsController extends Controller
     {
         $costcenters = CostCenter::all(['id', 'costcenter_name']);
         $fundsources = FundSource::all(['id', 'description']);
+        $items = Item::all(['id', 'description']);
         // $purchaserequests =['' => 'Please Select a Cost Center'] + CostCenter::lists('costcenter_name','id')->toArray();
-        return view('purchaserequests.create')->with('costcenters', $costcenters)->with('fundsources', $fundsources);
+        return view('purchaserequests.create')->with('costcenters', $costcenters)->with('fundsources', $fundsources)->with('items', $items);
     }
 
     /**
@@ -46,6 +48,7 @@ class PurchaseRequestsController extends Controller
         $this->validate($request, [
             'costcenter_id' => 'required',
             'fundsource_id' => 'required',
+            'sai_number' => 'required',
             'date' => 'required',
             'purpose' => 'required',
             'request_origin' => 'required',

@@ -25,7 +25,7 @@ class FundSourcesController extends Controller
      */
     public function create()
     {
-        //
+        return view('fundsources.create');
     }
 
     /**
@@ -36,7 +36,16 @@ class FundSourcesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'description' => 'required'
+        ]);
+
+        // Create Request
+        $fundsources = new FundSource;
+        $fundsources->description = $request->input('description');
+        $fundsources->save();
+
+        return redirect('/fundsources')->with('success', 'Item Added');
     }
 
     /**

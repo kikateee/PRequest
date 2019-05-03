@@ -14,7 +14,7 @@ class CreatePurchaseRequestDetailsTable extends Migration
     public function up()
     {
         Schema::create('purchase_request_details', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->bigIncrements('id', true);
 
             // Foreign Key Integers
             $table->unsignedBigInteger('item_id');
@@ -22,11 +22,12 @@ class CreatePurchaseRequestDetailsTable extends Migration
             $table->integer('quantity');
             $table->double('estimate_unit_cost', 8, 2);
             $table->double('estimated_cost', 8, 2);
-
-            // Foreign Key Constraints
-            $table->foreign('item_id')->references('id')->on('items');
-            $table->foreign('purq_id')->references('id')->on('purchase_requests');            
             $table->timestamps();
+        });
+
+        Schema::table('purchase_request_details', function($table) {
+            $table->foreign('item_id')->references('id')->on('items');
+            $table->foreign('purq_id')->references('id')->on('purchase_requests');     
         });
     }
 

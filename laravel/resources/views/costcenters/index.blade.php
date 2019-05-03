@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col">
             <h1 class="float-left">Cost Centers</h1>
-            <a href="/items/create" class="btn btn-success float-right">Add Cost Center</a>
+            <a href="/costcenters/create" class="btn btn-success float-right">Add Cost Center</a>
         </div>
     </div>
     <div class="row">
@@ -23,7 +23,7 @@
                             <td>{{$row->costcenter_name}}</td>
                             <td>{{$row->section_name}}</td>
                             <td align="center">
-                                <a href="" class="btn btn-primary btn-sm">View</a>
+                                {{-- <a href="" class="btn btn-primary btn-sm">View</a> --}}
                                 <a href="" class="btn btn-secondary btn-sm">Edit</a>
                                 <a href="" class="btn btn-danger btn-sm">Delete</a>
                             </td>

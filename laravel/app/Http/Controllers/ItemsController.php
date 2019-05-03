@@ -25,7 +25,7 @@ class ItemsController extends Controller
      */
     public function create()
     {
-        //
+        return view('items.create');
     }
 
     /**
@@ -36,7 +36,20 @@ class ItemsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'description' => 'required',
+            'stock' => 'required',
+            'unit_of_issue' => 'required'
+        ]);
+
+        // Create Request
+        $items = new Item;
+        $items->description = $request->input('description');
+        $items->stock = $request->input('stock');
+        $items->unit_of_issue = $request->input('unit_of_issue');
+        $items->save();
+
+        return redirect('/items')->with('success', 'Item Added');
     }
 
     /**

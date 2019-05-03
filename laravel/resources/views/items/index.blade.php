@@ -25,7 +25,7 @@
                             <td>{{$row->stock}}</td>
                             <td>{{$row->unit_of_issue}}</td>
                             <td align="center">
-                                <a href="" class="btn btn-primary btn-sm">View</a>
+                                {{-- <a href="" class="btn btn-primary btn-sm">View</a> --}}
                                 <a href="" class="btn btn-secondary btn-sm">Edit</a>
                                 <a href="" class="btn btn-danger btn-sm">Delete</a>
                             </td>

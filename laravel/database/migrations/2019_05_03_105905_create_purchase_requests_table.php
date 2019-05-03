@@ -14,7 +14,7 @@ class CreatePurchaseRequestsTable extends Migration
     public function up()
     {
         Schema::create('purchase_requests', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->bigIncrements('id', true);
 
             // Foreign Key Integers
             $table->unsignedBigInteger('costcenter_id');
@@ -26,11 +26,12 @@ class CreatePurchaseRequestsTable extends Migration
             $table->string('purpose', 256);
             $table->string('request_origin', 256);
             $table->string('approved_by', 256);
-            
-            // Foregin Key Constraints
-            $table->foreign('costcenter_id')->references('id')->on('cost_centers');
-            $table->foreign('fundsource_id')->references('id')->on('fund_sources');            
             $table->timestamps();
+        });
+
+        Schema::table('purchase_requests', function($table) {
+            $table->foreign('costcenter_id')->references('id')->on('cost_centers');
+            $table->foreign('fundsource_id')->references('id')->on('fund_sources');   
         });
     }
 
