@@ -23,7 +23,9 @@ class PurchaseRequestDetailsController extends Controller
      */
     public function create()
     {
-        //
+        $items = Item::all(['id', 'description']);
+        // $purchaserequests =['' => 'Please Select a Cost Center'] + CostCenter::lists('costcenter_name','id')->toArray();
+        return view('requestdetails.create')->with('items', $items);
     }
 
     /**

@@ -4,6 +4,7 @@
     <div class="row">
         <div class="col">
             <h1 class="float-left">Purchase Request Details</h1>
+            <a href="/requestdetails/create" class="btn btn-success float-right">Add Items</a>
             {{-- <a href="/items/create" class="btn btn-success float-right">Add Item</a> --}}
         </div>
     </div>

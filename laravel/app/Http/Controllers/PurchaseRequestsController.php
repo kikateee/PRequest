@@ -67,6 +67,7 @@ class PurchaseRequestsController extends Controller
         $purchaserequest->approved_by = $request->input('approved_by');
         $purchaserequest->save();
 
+        // Fetching the last inserted ID
         $insertedId = $purchaserequest->id;
 
         return redirect('/purchaserequests/'.$insertedId)->with('success', 'Request Created');
