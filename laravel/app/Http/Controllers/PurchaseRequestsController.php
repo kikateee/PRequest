@@ -69,7 +69,7 @@ class PurchaseRequestsController extends Controller
 
         $insertedId = $purchaserequest->id;
 
-        return redirect('/purchaserequests'.$insertedId)->with('success', 'Request Created');
+        return redirect('/purchaserequests/'.$insertedId)->with('success', 'Request Created');
     }
 
     /**
