@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\FundSource;
 
 class FundSourcesController extends Controller
 {
@@ -13,7 +14,8 @@ class FundSourcesController extends Controller
      */
     public function index()
     {
-        return view('fundsources.index');
+        $fundsources = FundSource::all();
+        return view('fundsources.index')->with('fundsources', $fundsources);
     }
 
     /**
