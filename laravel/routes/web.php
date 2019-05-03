@@ -20,3 +20,7 @@ Route::get('/fundsources','FundSourcesController@index');
 Route::get('/items','ItemsController@index');
 Route::get('/purchaserequests','PurchaseRequestsController@index');
 
+Route::resource('purchaserequests', 'PurchaseRequestsController');
+Route::resource('costcenters', 'CostCentersController');
+Route::resource('fundsources', 'FundSourcesController');
+Route::resource('items', 'ItemsController');

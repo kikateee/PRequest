@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\PurchaseRequest;
+use App\PurchaseRequestDetail;
 
 class PurchaseRequestsController extends Controller
 {
@@ -13,7 +15,9 @@ class PurchaseRequestsController extends Controller
      */
     public function index()
     {
-        return view('purchaserequests.index');
+        $purchaserequests = PurchaseRequest::all();
+        return view('purchaserequests.index')->with('purchaserequests', $purchaserequests);
+        // return view('purchaserequests.index');
     }
 
     /**
@@ -23,7 +27,7 @@ class PurchaseRequestsController extends Controller
      */
     public function create()
     {
-        //
+        return view('purchaserequests.create');
     }
 
     /**
@@ -45,7 +49,14 @@ class PurchaseRequestsController extends Controller
      */
     public function show($id)
     {
-        //
+        // $purchaserequest = PurchaseRequestDetail::find($id);
+
+        // $purchaserequest = PurchaseRequestDetail::where('purq_id', $id)->get();
+
+        // $purchaserequest = PurchaseRequestDetail::where('purq_id', $id)->get();
+        // return view('purchaserequests.show')
+        $requestdetails = PurchaseRequestDetail::where('purq_id', $id)->get();
+        return view('purchaserequests.show')->with('requestdetails', $requestdetails);
     }
 
     /**

@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\CostCenter;
 
-class CostCentersController extends Controller
+class PurchaseRequestDetailsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +13,7 @@ class CostCentersController extends Controller
      */
     public function index()
     {
-        $costcenters = CostCenter::all();
-        return view('costcenters.index')->with('costcenters', $costcenters);
+        //
     }
 
     /**
