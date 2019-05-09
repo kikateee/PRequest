@@ -15,6 +15,9 @@
     <div class="row">
         <div class="col">
             <table class="table table-bordered">
+                <thead align="center">
+                    <th colspan="2"><h3>Information</h3></th>
+                </thead>
                 @foreach($purchaserequests as $row)
                 <tr>
                     <td style="font-weight: bold;">Purchase Request #</td>
@@ -22,11 +25,11 @@
                 </tr>
                 <tr>
                     <td style="font-weight: bold;">Cost Center</td>
-                    <td>{{$row->costcenter_id}}</td>
+                    <td>{{$row->costcenter_name}}</td>
                 </tr>
                 <tr>
                     <td style="font-weight: bold;">Fund Source</td>
-                    <td>{{$row->fundsource_id}}</td>
+                    <td>{{$row->source}}</td>
                 </tr>
                 <tr>
                     <td style="font-weight: bold;">SAI Number</td>
@@ -52,9 +55,10 @@
             </table>
         </div>
         <div class="col">
+            <h3>Items</h3>
             <table class="table table-bordered table-hover">
                 <thead align="center">
-                    <th>Item</th>
+                    <th>Description</th>
                     <th>Quantity</th>
                     <th>Estimated Unit Cost</th>
                     <th>Estimated Cost</th>
@@ -63,7 +67,7 @@
                     @if(count($requestdetails) > 0)
                         @foreach($requestdetails as $row)
                         <tr align="center">
-                            <td>{{$row->item_id}}</td>
+                            <td>{{$row->description}}</td>
                             <td>{{$row->quantity}}</td>
                             <td>Php {{$row->estimate_unit_cost}}/per</td>
                             <td>Php {{$row->estimated_cost}}</td>

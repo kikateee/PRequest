@@ -15,7 +15,7 @@ class CreateFundSourcesTable extends Migration
     {
         Schema::create('fund_sources', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('description');
+            $table->string('source');
             $table->timestamps();
         });
     }

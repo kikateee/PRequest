@@ -1,10 +1,10 @@
 @extends('layouts.app')
     
 @section('content')
-    <div class="jumbotron jumbotron-fluid">
+    <div class="jumbotron jumbotron">
         <div class="container">
             <h1 class="display-5">Create a Purchase Request</h1>
-            {{-- <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p> --}}
+            <p class="lead">You may add another item after you submit this form.</p>
         </div>
     </div>
     <hr>
@@ -25,7 +25,7 @@
                     <div class="col">
                         <label for="fundsource_id">Fund Sources</label>
                             @foreach($fundsources as $row)
-                                <input type="text" value="{{$row->description}}" class="form-control" readonly> 
+                                <input type="text" value="{{$row->source}}" class="form-control" readonly> 
                                 <input type="hidden" name="fundsource_id" value="{{$row->id}}">
                             @endforeach
                     </div>
@@ -43,18 +43,7 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group">
-                <div class="row">
-                    <div class="col">
-                        {{Form::label('request_origin', 'Request Origin')}}
-                        {{Form::text('request_origin', '', ['placeholder' => 'Request Origin' ,'class' => 'form-control'])}}
-                    </div>
-                    <div class="col">
-                        {{Form::label('approved_by', 'Approved By')}}
-                        {{Form::text('approved_by', '', ['placeholder' => 'Approved By' ,'class' => 'form-control'])}}
-                    </div>
-                </div>
-            </div>
+            
         </div>
         <div class="col">
             <h4>Item Requested</h4>
@@ -73,18 +62,14 @@
                 @endforeach
             </div>
             <div class="form-group">
-                {{Form::label('quantity', 'Quantity')}}
-                {{Form::number('quantity', '', ['min' => '0', 'placeholder' => 'Quantity of Items' ,'class' => 'form-control'])}}
-            </div>
-            <div class="form-group">
                 <div class="row">
+                    <div class="col">
+                        {{Form::label('quantity', 'Quantity')}}
+                        {{Form::number('quantity', '', ['min' => '0', 'placeholder' => 'Quantity of Items' ,'class' => 'form-control'])}}
+                    </div>
                     <div class="col">
                         {{Form::label('estimate_unit_cost', 'Estimate Cost per Unit')}}
                         {{Form::number('estimate_unit_cost', '', ['min' => '0', 'placeholder' => 'Estimated Cost of an Item' ,'class' => 'form-control'])}}
-                    </div>
-                    <div class="col">
-                        {{Form::label('estimated_cost', 'Estimated Cost')}}
-                        {{Form::number('estimated_cost', '', ['min' => '0', 'placeholder' => 'Total Estimated Cost' ,'class' => 'form-control'])}}
                     </div>
                 </div>
             </div>
@@ -95,6 +80,18 @@
             <div class="form-group">
                 {{Form::label('purpose', 'Purpose')}}
                 {{Form::textarea('purpose', '', ['rows' => '5', 'cols' => '50', 'placeholder' => 'Purpose of the purchase request...' ,'class' => 'form-control'])}}
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col">
+                {{Form::label('request_origin', 'Request Origin')}}
+                {{Form::text('request_origin', '', ['placeholder' => 'Request Origin' ,'class' => 'form-control'])}}
+            </div>
+            <div class="col">
+                {{Form::label('approved_by', 'Approved By')}}
+                {{Form::text('approved_by', '', ['placeholder' => 'Approved By' ,'class' => 'form-control'])}}
             </div>
         </div>
     </div>

@@ -17,7 +17,7 @@ class ItemsController extends Controller
      */
     public function index()
     {
-        $items = Item::all();
+        // $items = Item::orderBy('id', 'asc')->paginate(10);
         $costcenters = CostCenter::all();
         $fundsources = FundSource::all();
 
@@ -28,6 +28,14 @@ class ItemsController extends Controller
         // ->join('fund_sources', 'fundsources.id', '=', 'items.fundsource_id')
         // ->select('items.*')
         // ->get();
+
+        $items = DB::table('items')
+        ->join('cost_centers','cost_centers.id','items.costcenter_id')
+        ->join('fund_sources', 'fund_sources.id', 'items.fundsource_id')
+        ->select('cost_centers.costcenter_name', 'fund_sources.source', 'items.description', 'items.stock'
+        ,'items.unit_of_issue', 'items.id', 'items.costcenter_id', 'items.fundsource_id')
+        ->orderBy('items.id', 'asc')
+        ->get();
         
         return view('items.index')->with('items', $items);
         

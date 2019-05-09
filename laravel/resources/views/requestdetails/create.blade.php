@@ -22,11 +22,11 @@
             <div class="row">
                 <div class="col">
                     {{Form::label('quantity', 'Quantity')}}
-                    {{Form::number('quantity', '', ['placeholder' => 'Quantity of Items' ,'class' => 'form-control'])}}
+                    {{Form::number('quantity', '', ['min' => '0', 'placeholder' => 'Quantity of Items' ,'class' => 'form-control'])}}
                 </div>
                 <div class="col">
                     {{Form::label('estimate_unit_cost', 'Estimate Unit Cost')}}
-                    {{Form::text('estimate_unit_cost', '', ['placeholder' => 'Estimate Cost per Unit' ,'class' => 'form-control'])}}
+                    {{Form::number('estimate_unit_cost', '', ['min' => '0', 'placeholder' => 'Estimate Cost per Unit' ,'class' => 'form-control'])}}
                 </div>
             </div>
         </div>

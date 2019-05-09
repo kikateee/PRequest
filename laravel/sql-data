@@ -1,0 +1,16 @@
+-- SELECT * FROM cost_centers
+
+INSERT INTO cost_centers (costcenter_name, section_name)
+VALUES ('IT Department', 'CCS'), ('IS Department', 'CCS'), ('CS Department', 'CCS'),
+('Physics Department', 'CSM'), ('Mathematics Department', 'CSM'), ('Statistics Department', 'CSM')
+
+-- SELECT * FROM fund_sources
+
+INSERT INTO fund_sources (source)
+VALUES ('NCIP'), ('LGU'), ('PSA'), ('DOH'), ('CHED')
+
+-- SELECT * FROM items
+
+INSERT INTO items (costcenter_id, fundsource_id, description, stock, unit_of_issue)
+VALUES (4, 1, 'Item A', 20, 'ream'), (5, 1, 'Item B', 20, 'dozen'), (6, 1, 'Item C', 20, 'gallon'),
+(1, 2, 'Item D', 40, 'pair'), (2, 2, 'Item E', 40, 'pound'), (3, 2, 'Item F', 40, 'set')

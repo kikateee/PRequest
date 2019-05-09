@@ -26,8 +26,8 @@
                     @foreach($purchaserequests as $row)
                         <tr align="center">
                             <td>{{$row->id}}</td>
-                            <td>{{$row->costcenter_id}}</td>
-                            <td>{{$row->fundsource_id}}</td>
+                            <td>{{$row->costcenter_name}}</td>
+                            <td>{{$row->source}}</td>
                             <td>{{$row->sai_number}}</td>
                             <td>{{$row->date}}</td>
                             <td>{{$row->purpose}}</td>
@@ -48,7 +48,7 @@
             </tbody>
             
         </table>
-        {{$purchaserequests->links()}}
+        {{-- {{$purchaserequests->links()}} --}}
     </div>
     
 @endsection
