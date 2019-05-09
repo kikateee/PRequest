@@ -20,8 +20,10 @@ Route::get('/fundsources','FundSourcesController@index');
 Route::get('/items','ItemsController@index');
 Route::get('/purchaserequests','PurchaseRequestsController@index');
 Route::get('/purchaserequests/create/{item}/{fundsources}/{costcenters}','PurchaseRequestsController@create');
+Route::get('/requestdetails/create/{purchaserequest}','PurchaseRequestDetailsController@create');
 
 Route::resource('purchaserequests', 'PurchaseRequestsController');
 Route::resource('costcenters', 'CostCentersController');
 Route::resource('fundsources', 'FundSourcesController');
 Route::resource('items', 'ItemsController');
+Route::resource('requestdetails', 'PurchaseRequestDetailsController');

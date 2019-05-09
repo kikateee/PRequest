@@ -106,7 +106,8 @@ class PurchaseRequestsController extends Controller
 
         // Old
         $requestdetails = PurchaseRequestDetail::where('purq_id', $id)->get();
-        return view('purchaserequests.show')->with('requestdetails', $requestdetails);
+        $purchaserequests = PurchaseRequest::where('id', $id)->get();
+        return view('purchaserequests.show')->with('requestdetails', $requestdetails)->with('purchaserequests', $purchaserequests);
 
         // $items = Item::where('id', $id)->get();
         // return view('purchaserequests.show')->with('items', $items);

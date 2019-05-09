@@ -4,9 +4,10 @@
     <div class="row">
         <div class="col">
             <h1 class="float-left">Items</h1>
-            <a href="/items/create" class="btn btn-success float-right">Add Item</a>
+            {{-- <a href="/items/create" class="btn btn-success float-right">Add Item</a> --}}
         </div>
     </div>
+    <hr>
     <div class="row">
         <div class="col">
             {!! Form::open(['action' => 'PurchaseRequestsController@create', 'method' => 'POST']) !!}

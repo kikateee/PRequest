@@ -7,6 +7,7 @@
             {{-- <a href="/purchaserequests/create" class="btn btn-success float-right">Create Request</a> --}}
         </div>
     </div>
+    <hr>
     <div class="row">
         <table class="table table-bordered table-hover table-sm">
             <thead align="center">
@@ -34,8 +35,8 @@
                             <td>{{$row->approved_by}}</td>
                             <td align="center">
                                 <a href="/purchaserequests/{{$row->id}}" class="btn btn-outline-primary btn-sm">View</a>
-                                <a href="/purchaserequests/{{$row->id}}" class="btn btn-outline-secondary btn-sm">Edit</a>
-                                <a href="/purchaserequests/{{$row->id}}" class="btn btn-outline-danger btn-sm">Delete</a>
+                                {{-- <a href="/purchaserequests/{{$row->id}}" class="btn btn-outline-secondary btn-sm">Edit</a> --}}
+                                {{-- <a href="/purchaserequests/{{$row->id}}" class="btn btn-outline-danger btn-sm">Delete</a> --}}
                             </td>
                         </tr>
                     @endforeach 

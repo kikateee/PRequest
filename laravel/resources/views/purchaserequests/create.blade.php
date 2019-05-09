@@ -3,7 +3,7 @@
 @section('content')
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
-            <h1 class="display-4">Purchase Request</h1>
+            <h1 class="display-5">Create a Purchase Request</h1>
             {{-- <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p> --}}
         </div>
     </div>
@@ -11,7 +11,8 @@
     {!! Form::open(['action' => 'PurchaseRequestsController@store', 'method' => 'POST']) !!}
     <div class="row">
         <div class="col-md-6">
-            <h3>Information</h3>
+            <h4>Information</h4>
+            <br>
             <div class="form-group">
                 <div class="row">
                     <div class="col">
@@ -34,17 +35,13 @@
                 <div class="row">
                     <div class="col">
                         {{Form::label('sai_number', 'SAI Number')}}
-                        {{Form::number('sai_number', '', ['placeholder' => 'SAI Number' ,'class' => 'form-control'])}}
+                        {{Form::number('sai_number', '', ['min' => '0', 'placeholder' => 'SAI Number' ,'class' => 'form-control'])}}
                     </div>
                     <div class="col">
                         {{Form::label('date', 'Date')}}
                         {{Form::date('date', '', ['placeholder' => 'Date' ,'class' => 'form-control'])}}
                     </div>
                 </div>
-            </div>
-            <div class="form-group">
-                {{Form::label('purpose', 'Purpose')}}
-                {{Form::textarea('purpose', '', ['rows' => '5', 'cols' => '50', 'placeholder' => 'Purpose of the purchase request...' ,'class' => 'form-control'])}}
             </div>
             <div class="form-group">
                 <div class="row">
@@ -60,7 +57,8 @@
             </div>
         </div>
         <div class="col">
-            <h3>Item Requested</h3>
+            <h4>Item Requested</h4>
+            <br>
             <div class="form-group">
                 {{-- <label for="item_id">Item</label>
                 <select name="item_id" class="form-control">
@@ -76,19 +74,27 @@
             </div>
             <div class="form-group">
                 {{Form::label('quantity', 'Quantity')}}
-                {{Form::number('quantity', '', ['placeholder' => 'Quantity of Items' ,'class' => 'form-control'])}}
+                {{Form::number('quantity', '', ['min' => '0', 'placeholder' => 'Quantity of Items' ,'class' => 'form-control'])}}
             </div>
             <div class="form-group">
                 <div class="row">
                     <div class="col">
                         {{Form::label('estimate_unit_cost', 'Estimate Cost per Unit')}}
-                        {{Form::number('estimate_unit_cost', '', ['placeholder' => 'Estimated Cost of an Item' ,'class' => 'form-control'])}}
+                        {{Form::number('estimate_unit_cost', '', ['min' => '0', 'placeholder' => 'Estimated Cost of an Item' ,'class' => 'form-control'])}}
                     </div>
                     <div class="col">
                         {{Form::label('estimated_cost', 'Estimated Cost')}}
-                        {{Form::number('estimated_cost', '', ['placeholder' => 'Estimated Cost' ,'class' => 'form-control'])}}
+                        {{Form::number('estimated_cost', '', ['min' => '0', 'placeholder' => 'Total Estimated Cost' ,'class' => 'form-control'])}}
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                {{Form::label('purpose', 'Purpose')}}
+                {{Form::textarea('purpose', '', ['rows' => '5', 'cols' => '50', 'placeholder' => 'Purpose of the purchase request...' ,'class' => 'form-control'])}}
             </div>
         </div>
     </div>
