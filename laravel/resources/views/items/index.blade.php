@@ -8,37 +8,51 @@
         </div>
     </div>
     <div class="row">
-        <table class="table table-bordered table-sm">
-            <thead align="center">
-                <th>#</th>
-                <th>Description</th>
-                <th>Stock</th>
-                <th>Unit of Issue</th>
-                <th>Action</th>
-            </thead>
-            <tbody>
-                @if(count($items) > 0)
-                    @foreach($items as $row)
+        <div class="col">
+            {!! Form::open(['action' => 'PurchaseRequestsController@create', 'method' => 'POST']) !!}
+            <table class="table table-bordered table-hover">
+                <thead align="center">
+                    <th>#</th>
+                    <th>Description</th>
+                    {{-- <th>Cost Center</th>
+                    <th>Fund Source</th> --}}
+                    <th>Stock</th>
+                    <th>Unit of Issue</th>
+                    <th>Action</th>
+                </thead>
+                <tbody>
+                    @if(count($items) > 0)
+                        @foreach($items as $row)
+                            <tr align="center">
+                                <td>{{$row->id}}</td>
+                                {{Form::hidden('item_id', $row->id)}}
+                                <td>{{$row->description}}</td>
+                                {{Form::hidden('description', $row->description)}}
+                                {{-- <td>{{$row->costcenter_id}}</td>
+                                {{Form::hidden('costcenter_id', $row->costcenter_id)}}
+                                <td>{{$row->fundsource_id}}</td>
+                                {{Form::hidden('fundsource_id', $row->fundsource_id)}} --}}
+                                <td>{{$row->stock}}</td>
+                                {{Form::hidden('stock', $row->stock)}}
+                                <td>{{$row->unit_of_issue}}</td>
+                                {{Form::hidden('unit_of_issue', $row->unit_of_issue)}}
+                                <td>
+                                    {{-- <a href="" class="btn btn-primary btn-sm">View</a> --}}
+                                    {{-- {{Form::submit('Create Purchase Request', ['class' => 'btn btn-success'])}} --}}
+                                <a href="/purchaserequests/create/{{$row->id}}/{{$row->costcenter_id}}/{{$row->fundsource_id}}" class="btn btn-outline-primary">Create Purchase Order</a>
+                                    {{-- <a href="/items/{{$row->id}}/edit" class="btn btn-secondary btn-sm">Edit</a> --}}
+                                    {{-- <a href="/items/{{$row->id}}/destroy" class="btn btn-danger btn-sm">Delete</a> --}}
+                                </td>
+                            </tr>
+                        @endforeach 
+                    @else 
                         <tr>
-                            <td>{{$row->id}}</td>
-                            <td>{{$row->description}}</td>
-                            <td>{{$row->stock}}</td>
-                            <td>{{$row->unit_of_issue}}</td>
-                            <td align="center">
-                                {{-- <a href="" class="btn btn-primary btn-sm">View</a> --}}
-                                <a href="/items/{{$row->id}}/edit" class="btn btn-secondary btn-sm">Edit</a>
-                                <a href="/items/{{$row->id}}/destroy" class="btn btn-danger btn-sm">Delete</a>
-                            </td>
+                            <td colspan="9" align="center">No records found.</td>
                         </tr>
-                    @endforeach 
-                @else 
-                    <tr>
-                        <td colspan="9" align="center">No records found.</td>
-                    </tr>
-                @endif
-            </tbody>
-            
-        </table>
+                    @endif
+                </tbody>
+            </table>
+            {!! Form::close() !!}
+        </div>
     </div>
-    
 @endsection

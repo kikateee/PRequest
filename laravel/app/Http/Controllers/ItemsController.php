@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Item;
+use App\CostCenter;
+use App\FundSource;
+use DB;
 
 class ItemsController extends Controller
 {
@@ -15,7 +18,19 @@ class ItemsController extends Controller
     public function index()
     {
         $items = Item::all();
+        $costcenters = CostCenter::all();
+        $fundsources = FundSource::all();
+
+        // $costcenters = DB::table('cost_centers')->select('id', 'costcenter_name', 'section_name')->get();
+        // $fundsources = DB::table('fund_sources')->select('id', 'description')->get();
+        // $items = DB::table('items')
+        // ->join('cost_centers', 'costcenters.id', '=', 'items.costcenter_id')
+        // ->join('fund_sources', 'fundsources.id', '=', 'items.fundsource_id')
+        // ->select('items.*')
+        // ->get();
+        
         return view('items.index')->with('items', $items);
+        
     }
 
     /**

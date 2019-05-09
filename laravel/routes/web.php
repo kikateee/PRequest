@@ -19,6 +19,7 @@ Route::get('/costcenters','CostCentersController@index');
 Route::get('/fundsources','FundSourcesController@index');
 Route::get('/items','ItemsController@index');
 Route::get('/purchaserequests','PurchaseRequestsController@index');
+Route::get('/purchaserequests/create/{item}/{fundsources}/{costcenters}','PurchaseRequestsController@create');
 
 Route::resource('purchaserequests', 'PurchaseRequestsController');
 Route::resource('costcenters', 'CostCentersController');

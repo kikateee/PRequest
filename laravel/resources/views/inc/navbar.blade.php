@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-danger">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <a class="navbar-brand" href="/">{{config('app.name', 'Purchase Request')}}</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -9,12 +9,12 @@
             <li class="nav-item">
             <a class="nav-link" href="/purchaserequests">Purchase Request</a>
             </li>
-            <li class="nav-item">
+            {{-- <li class="nav-item">
             <a class="nav-link" href="/costcenters">Cost Center</a>
             </li>
             <li class="nav-item">
             <a class="nav-link" href="/fundsources">Fund Sources</a>
-            </li>
+            </li> --}}
             <li class="nav-item">
             <a class="nav-link" href="/items">Items</a>
             </li>
