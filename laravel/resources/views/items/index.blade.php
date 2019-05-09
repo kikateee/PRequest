@@ -2,10 +2,36 @@
     
 @section('content')
     <div class="row">
-        <div class="col">
-            <h1 class="float-left">Items</h1>
+        <div class="col-6">
+            <h1 class="display-4 float-left">Items</h1>
             {{-- <a href="/items/create" class="btn btn-success float-right">Add Item</a> --}}
         </div>
+
+        {{-- 
+            UNDER CONSTRUCTION 
+        --}}
+        
+        {{-- {!! Form::open(['action' => 'SearchController@index', 'method' => 'GET']) !!}
+            <div class="col-2">
+                Filter By
+                <select name="filterBy" class="form-control">
+                    <option value=""></option>
+                    <optgroup label="Filters">
+                        <option value="costcenter_name">Cost Center</option>
+                        <option value="source">Fund Source</option>
+                    </optgroup>
+                </select>
+            </div>
+            <div class="col-4">
+                <label for=""></label>
+                <div class="input-group mb-3">
+                    <input type="text" name="searchInput" class="form-control" placeholder="...">
+                    <div class="input-group-append">
+                        <input type="Submit" value="Search" class="btn btn-outline-secondary">
+                    </div>
+                </div>
+            </div>
+        {!! Form::close() !!} --}}
     </div>
     <hr>
     <div class="row">

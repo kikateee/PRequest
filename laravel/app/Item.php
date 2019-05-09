@@ -12,4 +12,9 @@ class Item extends Model
     public $primaryKey = 'id';
     // Timestamp
     // public $timestamps = true;
+
+    public function scopeSearch($query, $s){
+        return $query->where('costcenter_name', 'like', '%' .$s. '%')
+            ->orWhere('source', 'like', '%' .$s. '%');
+    }
 }

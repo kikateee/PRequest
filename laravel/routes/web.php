@@ -27,3 +27,4 @@ Route::resource('costcenters', 'CostCentersController');
 Route::resource('fundsources', 'FundSourcesController');
 Route::resource('items', 'ItemsController');
 Route::resource('requestdetails', 'PurchaseRequestDetailsController');
+Route::resource('search', 'SearchController');
