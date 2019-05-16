@@ -18,5 +18,9 @@
         @include('inc.messages')
         @yield('content')
     </div>
+    
+    <br>
+    <br>
+    <br>
 </body>
 </html>

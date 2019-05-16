@@ -12,26 +12,27 @@
         --}}
         <hr>
         <div class="row">
-            <form action="/search" method="GET">
+            {!! Form::open(['action' => 'SearchController@index', 'method' => 'POST']) !!}
                 <div class="col">
                     Filter By
-                    <select name="filterBy" class="form-control" required>
+                    <select name="filterBy" class="form-control">
+                        <option value=""></option>
                         <optgroup label="Filters">
-                            <option value="costcenter_name">Cost Center</option>
-                            <option value="source">Fund Source</option>
+                            <option value="costcenter_id">Cost Center</option>
+                            <option value="fundsource_id">Fund Source</option>
                         </optgroup>
                     </select>
                 </div>
                 <div class="col">
                     <label for=""></label>
                     <div class="input-group mb-3">
-                        <input type="text" name="searchInput" class="form-control" required>
+                        <input type="text" name="searchInput" class="form-control" placeholder="">
                         <div class="input-group-append">
                             <input type="Submit" value="Search" class="btn btn-outline-secondary">
                         </div>
                     </div>
                 </div>
-            </form>
+            {!! Form::close() !!}
         </div>
         
     
@@ -84,5 +85,5 @@
             {!! Form::close() !!}
         </div>
     </div>
-    {{$items->links()}}
+    {{-- {{$items->links()}} --}}
 @endsection

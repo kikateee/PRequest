@@ -14,7 +14,7 @@ class FundSourcesController extends Controller
      */
     public function index()
     {
-        $fundsources = FundSource::all();
+        $fundsources = FundSource::all()->paginate(1);
         return view('fundsources.index')->with('fundsources', $fundsources);
     }
 

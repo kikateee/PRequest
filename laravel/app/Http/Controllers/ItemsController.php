@@ -35,7 +35,8 @@ class ItemsController extends Controller
         ->select('cost_centers.costcenter_name', 'fund_sources.source', 'items.description', 'items.stock'
         ,'items.unit_of_issue', 'items.id', 'items.costcenter_id', 'items.fundsource_id')
         ->orderBy('items.id', 'asc')
-        ->get();
+        ->paginate(5);
+        // ->get();
         
         return view('items.index')->with('items', $items);
         
