@@ -40,16 +40,18 @@
                     <td>{{$row->date}}</td>
                 </tr>
                 <tr>
-                    <td style="font-weight: bold;">Purpose</td>
-                    <td>{{$row->purpose}}</td>
-                </tr>
-                <tr>
                     <td style="font-weight: bold;">Request Origin</td>
                     <td>{{$row->request_origin}}</td>
                 </tr>
                 <tr>
                     <td style="font-weight: bold;">Approved By</td>
                     <td>{{$row->approved_by}}</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold;" colspan="2">Purpose:</td>
+                </tr>
+                <tr>
+                    <td colspan="2">{{$row->purpose}}</td>
                 </tr>
                 @endforeach
             </table>

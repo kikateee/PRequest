@@ -16,7 +16,7 @@
                 <th>Fund Source</th>
                 <th>SAI Number</th>
                 <th>Date</th>
-                <th>Purpose</th>
+                {{-- <th>Purpose</th> --}}
                 <th>Request Origin</th>
                 <th>Approved By</th>
                 <th>Action</th>
@@ -30,7 +30,7 @@
                             <td>{{$row->source}}</td>
                             <td>{{$row->sai_number}}</td>
                             <td>{{$row->date}}</td>
-                            <td>{{$row->purpose}}</td>
+                            {{-- <td>{{$row->purpose}}</td> --}}
                             <td>{{$row->request_origin}}</td>
                             <td>{{$row->approved_by}}</td>
                             <td align="center">
