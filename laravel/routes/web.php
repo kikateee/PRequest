@@ -32,3 +32,5 @@ Route::resource('requestdetails', 'PurchaseRequestDetailsController');
 // Route search 
 Route::get('/search',['uses' => 'SearchController@getSearch','as' => 'search']);
 
+// Downloading PDF
+Route::get('/downloadPDF/{id}','PDFController@downloadPDF');
