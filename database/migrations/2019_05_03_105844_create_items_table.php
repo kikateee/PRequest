@@ -24,6 +24,8 @@ class CreateItemsTable extends Migration
             $table->string('description', 256);
             $table->integer('stock');
             $table->string('unit_of_issue', 256);
+            $table->string('quarter', 128);
+            $table->string('type', 128);
             $table->string('remark', 128);
             $table->timestamps();
         });

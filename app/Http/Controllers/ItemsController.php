@@ -32,8 +32,19 @@ class ItemsController extends Controller
         $items = DB::table('items')
         ->join('cost_centers','cost_centers.id','items.costcenter_id')
         ->join('fund_sources', 'fund_sources.id', 'items.fundsource_id')
-        ->select('cost_centers.costcenter_name', 'fund_sources.source', 'items.description', 'items.stock'
-        ,'items.unit_of_issue', 'items.id', 'items.costcenter_id', 'items.fundsource_id')
+        ->select(
+            'cost_centers.costcenter_name', 
+            'fund_sources.source', 
+            'items.description', 
+            'items.stock'
+            ,'items.unit_of_issue', 
+            'items.id', 
+            'items.costcenter_id', 
+            'items.fundsource_id',
+            'items.type',
+            'items.quarter',
+            'items.remark'
+            )
         ->orderBy('items.id', 'asc')
         ->paginate(5);
         // ->get();

@@ -5,8 +5,8 @@
         <div class="col">
             <h1 class="float-left">Purchase Request Details</h1>
             @foreach($purchaserequests as $row)
-                <a href="/requestdetails/create/{{$row->id}}" class="btn btn-outline-success float-right" style="margin: 3px;">Add Items</a>
-                <a href="{{action('PDFController@downloadPDF', $row->id)}}">Download PDF</a>
+                <a href="/requestdetails/create/{{$row->id}}" class="btn btn-outline-success float-right" style="margin: 3px;">Add Item</a>
+                <a href="{{action('PDFController@downloadPDF', $row->id)}}" class="btn btn-outline-primary float-right" style="margin: 3px;">Download PDF</a>
             @endforeach
             <a href="/purchaserequests" class="btn btn-outline-danger float-right" style="margin: 3px;">Back</a>
             {{-- <a href="/items/create" class="btn btn-success float-right">Add Item</a> --}}

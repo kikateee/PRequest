@@ -96,7 +96,7 @@
         </div>
     </div>
         <hr>
-        <a href="/purchaserequests" class="btn btn-outline-danger float-right" style="margin: 3px;">Cancel</a>
-        {{Form::submit('Submit', ['style' => 'margin: 3px;', 'class' => 'btn btn-outline-success float-right'])}}
+        {{Form::submit('Submit', ['style' => 'margin: 3px;', 'class' => 'btn btn-success btn-lg float-right'])}}
+        <a href="/purchaserequests" class="btn btn-default btn-lg float-right" style="margin: 3px;">Cancel</a>
     {!! Form::close() !!}
 @endsection
