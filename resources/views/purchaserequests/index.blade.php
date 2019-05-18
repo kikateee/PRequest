@@ -36,7 +36,7 @@
                             <td align="center">
                                 <a href="/purchaserequests/{{$row->id}}" class="btn btn-outline-primary btn-sm">View</a>
                                 <a href="/purchaserequests/{{$row->id}}/edit" class="btn btn-outline-secondary btn-sm">Edit</a>
-                                <a href="/purchaserequests/{{$row->id}}" class="btn btn-outline-danger btn-sm">Delete</a>
+                                <a href="/purchaserequests/{{$row->id}}/delete" class="btn btn-outline-danger btn-sm">Delete</a>
                             </td>
                         </tr>
                     @endforeach 
@@ -48,7 +48,7 @@
             </tbody>
             
         </table>
-        {{-- {{$purchaserequests->links()}} --}}
+        {{$purchaserequests->links()}}
     </div>
     
 @endsection

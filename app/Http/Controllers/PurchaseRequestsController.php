@@ -26,7 +26,8 @@ class PurchaseRequestsController extends Controller
         ,'purchase_requests.request_origin', 'purchase_requests.approved_by', 'purchase_requests.costcenter_id', 'purchase_requests.fundsource_id',
         'purchase_requests.id', 'purchase_requests.date')
         ->orderBy('purchase_requests.id', 'asc')
-        ->get();
+        // ->get();
+        ->paginate(5);
 
         // $purchaserequests = PurchaseRequest::all();
             // $purchaserequests = PurchaseRequest::orderBy('id', 'asc')->paginate(10);
@@ -85,6 +86,7 @@ class PurchaseRequestsController extends Controller
 
         // Fetching the last inserted ID
         $insertedId = $purchaserequest->id;
+        $item_id = $request->input('item_id');
 
         // Create Purchase Request Details
         $requestdetail = new PurchaseRequestDetail;
@@ -94,6 +96,10 @@ class PurchaseRequestsController extends Controller
         $requestdetail->estimate_unit_cost = $request->input('estimate_unit_cost');
         $requestdetail->estimated_cost = $request->input('estimate_unit_cost') * $request->input('quantity');
         $requestdetail->save();
+
+        $items = Item::find($item_id);
+        $items->remark = 'Requested';
+        $items->save();
 
         return redirect('/purchaserequests/' . $insertedId)->with('success', 'Request Created');
     }
@@ -106,13 +112,6 @@ class PurchaseRequestsController extends Controller
      */
     public function show($id)
     {
-        // $purchaserequest = PurchaseRequestDetail::find($id);
-
-        // $purchaserequest = PurchaseRequestDetail::where('purq_id', $id)->get();
-
-        // $purchaserequest = PurchaseRequestDetail::where('purq_id', $id)->get();
-        // return view('purchaserequests.show')
-
         $purchaserequests = DB::table('purchase_requests')
         ->join('cost_centers','cost_centers.id','purchase_requests.costcenter_id')
         ->join('fund_sources', 'fund_sources.id', 'purchase_requests.fundsource_id')
@@ -129,13 +128,7 @@ class PurchaseRequestsController extends Controller
         ->where('purchase_request_details.purq_id', $id)
         ->get();
 
-        // Old
-            // $requestdetails = PurchaseRequestDetail::where('purq_id', $id)->get();
-        // $purchaserequests = PurchaseRequest::where('id', $id)->get();
         return view('purchaserequests.show')->with('requestdetails', $requestdetails)->with('purchaserequests', $purchaserequests);
-
-        // $items = Item::where('id', $id)->get();
-        // return view('purchaserequests.show')->with('items', $items);
     }
 
     /**
@@ -146,7 +139,46 @@ class PurchaseRequestsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $costcenters = CostCenter::all();
+        $fundsources = FundSource::all();
+
+        $purchaserequests = DB::table('purchase_requests')
+        ->join('cost_centers','cost_centers.id','purchase_requests.costcenter_id')
+        ->join('fund_sources', 'fund_sources.id', 'purchase_requests.fundsource_id')
+        ->select(
+            'cost_centers.costcenter_name', 
+            'fund_sources.source', 
+            'purchase_requests.sai_number', 
+            'purchase_requests.purpose', 
+            'purchase_requests.request_origin', 
+            'purchase_requests.approved_by', 
+            'purchase_requests.costcenter_id', 
+            'purchase_requests.fundsource_id',
+            'purchase_requests.id', 
+            'purchase_requests.date'
+            )
+        ->where('purchase_requests.id', $id)
+        ->get();
+
+        $requestdetails = DB::table('purchase_request_details')
+        ->join('items', 'items.id', 'purchase_request_details.item_id')
+        ->select(
+            'items.description', 
+            'purchase_request_details.estimate_unit_cost', 
+            'purchase_request_details.quantity', 
+            'purchase_request_details.estimated_cost', 
+            'purchase_request_details.item_id', 
+            'purchase_request_details.id', 
+            'purchase_request_details.purq_id'
+            )
+        ->where('purchase_request_details.purq_id', $id)
+        ->get();
+
+        return view('purchaserequests.edit')
+        ->with('requestdetails', $requestdetails)
+        ->with('purchaserequests', $purchaserequests)
+        ->with('costcenters', $costcenters)
+        ->with('fundsources', $fundsources);
     }
 
     /**
@@ -158,7 +190,28 @@ class PurchaseRequestsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'costcenter_id' => 'required',
+            'fundsource_id' => 'required',
+            'sai_number' => 'required',
+            'date' => 'required',
+            'purpose' => 'required',
+            'request_origin' => 'required',
+            'approved_by' => 'required'
+        ]);
+
+        // Edit Request
+        $purchaserequest = PurchaseRequest::find($id);
+        $purchaserequest->costcenter_id = $request->input('costcenter_id');
+        $purchaserequest->fundsource_id = $request->input('fundsource_id');
+        $purchaserequest->sai_number = $request->input('sai_number');
+        $purchaserequest->date = $request->input('date');
+        $purchaserequest->purpose = $request->input('purpose');
+        $purchaserequest->request_origin = $request->input('request_origin');
+        $purchaserequest->approved_by = $request->input('approved_by');
+        $purchaserequest->save();
+
+        return redirect('/purchaserequests/' . $id)->with('success', 'Request Updated');
     }
 
     /**
@@ -169,6 +222,22 @@ class PurchaseRequestsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // Fetching the Item ID
+        $item_id = DB::table('purchase_request_details')
+        ->where('purq_id', $id)
+        ->select('item_id')->value('item_id');
+
+        if($item_id > 0){
+            $items = Item::find($item_id);
+            $items->remark = 'Pending';
+            $items->save();
+
+            $requestdetails = PurchaseRequestDetail::find($id);
+            $requestdetails->delete();
+
+            return redirect('/purchaserequests/'.$id)->with('success', 'Item Deleted');
+        }else{
+            return redirect('/purchaserequests/'.$id)->with('error', 'Some error occured.');
+        }
     }
 }

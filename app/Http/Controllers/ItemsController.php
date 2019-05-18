@@ -17,17 +17,8 @@ class ItemsController extends Controller
      */
     public function index()
     {
-        // $items = Item::orderBy('id', 'asc')->paginate(10);
         $costcenters = CostCenter::all();
         $fundsources = FundSource::all();
-
-        // $costcenters = DB::table('cost_centers')->select('id', 'costcenter_name', 'section_name')->get();
-        // $fundsources = DB::table('fund_sources')->select('id', 'description')->get();
-        // $items = DB::table('items')
-        // ->join('cost_centers', 'costcenters.id', '=', 'items.costcenter_id')
-        // ->join('fund_sources', 'fundsources.id', '=', 'items.fundsource_id')
-        // ->select('items.*')
-        // ->get();
 
         $items = DB::table('items')
         ->join('cost_centers','cost_centers.id','items.costcenter_id')
@@ -46,6 +37,7 @@ class ItemsController extends Controller
             'items.remark'
             )
         ->orderBy('items.id', 'asc')
+        ->where('remark', 'Pending')
         ->paginate(5);
         // ->get();
         
