@@ -22,5 +22,8 @@
     <br>
     <br>
     <br>
+
+    {{-- Bootstrap Javascript --}}
+    <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>

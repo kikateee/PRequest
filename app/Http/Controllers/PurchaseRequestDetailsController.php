@@ -162,6 +162,22 @@ class PurchaseRequestDetailsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // Fetching the Item ID
+        $item_id = DB::table('purchase_request_details')
+        ->where('purq_id', $id)
+        ->select('item_id')->value('item_id');
+
+        if($item_id > 0){
+            $items = Item::find($item_id);
+            $items->remark = 'Pending';
+            $items->save();
+
+            $requestdetails = PurchaseRequestDetail::find($id);
+            $requestdetails->delete();
+
+            return redirect('/purchaserequests/'.$id)->with('success', 'Item Deleted');
+        }else{
+            return redirect('/purchaserequests/'.$id)->with('error', 'Some error occured.');
+        }
     }
 }

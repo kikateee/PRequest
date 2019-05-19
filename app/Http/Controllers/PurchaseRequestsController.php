@@ -34,8 +34,10 @@ class PurchaseRequestsController extends Controller
             'purchase_requests.id', 
             'purchase_requests.date',
             'purchase_requests.type',
-            'purchase_requests.quarter'
+            'purchase_requests.quarter',
+            'purchase_requests.deleted'
             )
+        ->where('purchase_requests.deleted', false)
         ->orderBy('purchase_requests.id', 'asc')
         // ->get();
         ->paginate(5);
@@ -240,22 +242,10 @@ class PurchaseRequestsController extends Controller
      */
     public function destroy($id)
     {
-        // Fetching the Item ID
-        $item_id = DB::table('purchase_request_details')
-        ->where('purq_id', $id)
-        ->select('item_id')->value('item_id');
+        $purchaserequests = PurchaseRequest::find($id);
+        $purchaserequests->deleted = true;
+        $purchaserequests->save();
 
-        if($item_id > 0){
-            $items = Item::find($item_id);
-            $items->remark = 'Pending';
-            $items->save();
-
-            $requestdetails = PurchaseRequestDetail::find($id);
-            $requestdetails->delete();
-
-            return redirect('/purchaserequests/'.$id)->with('success', 'Item Deleted');
-        }else{
-            return redirect('/purchaserequests/'.$id)->with('error', 'Some error occured.');
-        }
+        return redirect('/purchaserequests')->with('success', 'A Purchase Request has been removed.')->with('purchaserequests', $purchaserequests);
     }
 }

@@ -80,7 +80,7 @@
                             <td>Php {{$row->estimate_unit_cost}}/per</td>
                             <td>Php {{$row->estimated_cost}}</td>
                             <td>
-                                {!! Form::open(['action' => ['PurchaseRequestsController@destroy', $row->purq_id], 'method' => 'POST']) !!}
+                                {!! Form::open(['action' => ['PurchaseRequestDetailsController@destroy', $row->purq_id], 'method' => 'POST']) !!}
                                     {{Form::hidden('_method', 'DELETE')}}
                                     {{Form::submit('Remove', ['class' => 'btn btn-outline-danger btn-sm'])}}
                                 {!! Form::close() !!}

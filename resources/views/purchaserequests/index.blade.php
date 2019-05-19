@@ -40,15 +40,18 @@
                             <td>{{$row->request_origin}}</td>
                             <td>{{$row->approved_by}}</td>
                             <td align="center">
-                                <a href="/purchaserequests/{{$row->id}}" class="btn btn-outline-primary btn-sm">View</a>
-                                <a href="/purchaserequests/{{$row->id}}/edit" class="btn btn-outline-secondary btn-sm">Edit</a>
-                                <a href="/purchaserequests/{{$row->id}}/delete" class="btn btn-outline-danger btn-sm">Delete</a>
+                                {!! Form::open(['action' => ['PurchaseRequestsController@destroy', $row->id], 'method' => 'POST']) !!}
+                                    <a href="/purchaserequests/{{$row->id}}" class="btn btn-outline-primary btn-sm">View</a>
+                                    <a href="/purchaserequests/{{$row->id}}/edit" class="btn btn-outline-secondary btn-sm">Edit</a>
+                                    {{Form::submit('Remove', ['class' => 'btn btn-outline-danger btn-sm'])}}
+                                    {{Form::hidden('_method', 'DELETE')}}
+                                {!! Form::close() !!}
                             </td>
                         </tr>
                     @endforeach 
                 @else 
                     <tr>
-                        <td colspan="9" align="center">No records found.</td>
+                        <td colspan="10" align="center">No records found.</td>
                     </tr>
                 @endif
             </tbody>

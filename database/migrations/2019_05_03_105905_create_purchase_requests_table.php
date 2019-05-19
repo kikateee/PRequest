@@ -28,7 +28,7 @@ class CreatePurchaseRequestsTable extends Migration
             $table->string('approved_by', 256);
             $table->string('type', 256);
             $table->string('quarter', 256);
-            $table->boolean('deleted')->default('false');
+            $table->boolean('deleted')->default(false);
             $table->timestamps();
         });
 
