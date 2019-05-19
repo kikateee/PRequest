@@ -26,7 +26,7 @@ class CreateItemsTable extends Migration
             $table->string('unit_of_issue', 256);
             $table->string('quarter', 128);
             $table->string('type', 128);
-            $table->string('remark', 128);
+            $table->string('remark', 128)->default('Pending');
             $table->timestamps();
         });
 

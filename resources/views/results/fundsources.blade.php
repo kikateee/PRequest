@@ -105,7 +105,7 @@
                         @endforeach 
                     @else 
                         <tr>
-                            <td colspan="9" align="center">No records found.</td>
+                            <td colspan="9" align="center">Search Results: No records found.</td>
                         </tr>
                     @endif
                 </tbody>

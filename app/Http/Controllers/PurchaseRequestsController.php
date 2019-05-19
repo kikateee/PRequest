@@ -97,11 +97,14 @@ class PurchaseRequestsController extends Controller
         $requestdetail->estimated_cost = $request->input('estimate_unit_cost') * $request->input('quantity');
         $requestdetail->save();
 
+        // Updating the item's remark from Pending to Requested
+            // In which from the Items index page, items with remarks of Requested will eventually filter
+            // the items out from the index page itself
         $items = Item::find($item_id);
         $items->remark = 'Requested';
         $items->save();
 
-        return redirect('/purchaserequests/' . $insertedId)->with('success', 'Request Created');
+        return redirect('/purchaserequests/' . $insertedId)->with('success', 'A Purchase Request has been created successfully.');
     }
 
     /**

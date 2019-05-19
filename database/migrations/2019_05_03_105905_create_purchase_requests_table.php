@@ -26,6 +26,7 @@ class CreatePurchaseRequestsTable extends Migration
             $table->string('purpose', 256);
             $table->string('request_origin', 256);
             $table->string('approved_by', 256);
+            $table->boolean('deleted')->default('false');
             $table->timestamps();
         });
 
