@@ -35,7 +35,7 @@
                 <div class="row">
                     <div class="col">
                         {{Form::label('sai_number', 'SAI Number')}}
-                        {{Form::number('sai_number', '', ['min' => '0', 'placeholder' => 'SAI Number' ,'class' => 'form-control'])}}
+                        {{Form::number('sai_number', '', ['min' => '0', 'placeholder' => '### ### ###' ,'class' => 'form-control'])}}
                     </div>
                     <div class="col">
                         {{Form::label('date', 'Date')}}
@@ -96,7 +96,7 @@
         </div>
     </div>
         <hr>
-        {{Form::submit('Submit', ['style' => 'margin: 3px;', 'class' => 'btn btn-success btn-lg float-right'])}}
-        <a href="/purchaserequests" class="btn btn-default btn-lg float-right" style="margin: 3px;">Cancel</a>
+        {{Form::submit('Submit', ['style' => 'margin: 3px;', 'class' => 'btn btn-success float-right'])}}
+        <a href="/purchaserequests" class="btn btn-default float-right" style="margin: 3px;">Cancel</a>
     {!! Form::close() !!}
 @endsection
