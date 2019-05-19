@@ -242,10 +242,16 @@ class PurchaseRequestsController extends Controller
      */
     public function destroy($id)
     {
-        $purchaserequests = PurchaseRequest::find($id);
-        $purchaserequests->deleted = true;
-        $purchaserequests->save();
+        $countRequests = PurchaseRequestDetail::where('purq_id', $id)->count();
 
-        return redirect('/purchaserequests')->with('success', 'A Purchase Request has been removed.')->with('purchaserequests', $purchaserequests);
+        if($countRequests > 0){
+            return redirect('/purchaserequests')->with('error', 'A Purchase Request cannot be removed when it still contain an item.');
+        }else{
+            $purchaserequests = PurchaseRequest::find($id);
+            $purchaserequests->deleted = true;
+            $purchaserequests->save();
+
+            return redirect('/purchaserequests')->with('success', 'A Purchase Request has been removed.')->with('purchaserequests', $purchaserequests);
+        }
     }
 }
