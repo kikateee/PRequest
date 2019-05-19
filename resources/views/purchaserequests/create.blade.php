@@ -58,6 +58,8 @@
                 @foreach($items as $row)
                     <label for="item_id">Item</label>
                     <input type="hidden" value="{{$row->id}}" name="item_id" readonly>
+                    <input type="hidden" value="{{$row->quarter}}" name="quarter" readonly>
+                    <input type="hidden" value="{{$row->type}}" name="type" readonly>
                     <input type="text" value="{{$row->description}}" class="form-control" readonly>
                 @endforeach
             </div>

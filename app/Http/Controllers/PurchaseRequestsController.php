@@ -22,9 +22,20 @@ class PurchaseRequestsController extends Controller
         $purchaserequests = DB::table('purchase_requests')
         ->join('cost_centers','cost_centers.id','purchase_requests.costcenter_id')
         ->join('fund_sources', 'fund_sources.id', 'purchase_requests.fundsource_id')
-        ->select('cost_centers.costcenter_name', 'fund_sources.source', 'purchase_requests.sai_number', 'purchase_requests.purpose'
-        ,'purchase_requests.request_origin', 'purchase_requests.approved_by', 'purchase_requests.costcenter_id', 'purchase_requests.fundsource_id',
-        'purchase_requests.id', 'purchase_requests.date')
+        ->select(
+            'cost_centers.costcenter_name', 
+            'fund_sources.source', 
+            'purchase_requests.sai_number', 
+            'purchase_requests.purpose', 
+            'purchase_requests.request_origin', 
+            'purchase_requests.approved_by', 
+            'purchase_requests.costcenter_id', 
+            'purchase_requests.fundsource_id',
+            'purchase_requests.id', 
+            'purchase_requests.date',
+            'purchase_requests.type',
+            'purchase_requests.quarter'
+            )
         ->orderBy('purchase_requests.id', 'asc')
         // ->get();
         ->paginate(5);
@@ -63,6 +74,8 @@ class PurchaseRequestsController extends Controller
         $this->validate($request, [
             'costcenter_id' => 'required',
             'fundsource_id' => 'required',
+            'type' => 'required',
+            'quarter' => 'required',
             'sai_number' => 'required',
             'date' => 'required',
             'purpose' => 'required',
@@ -80,6 +93,8 @@ class PurchaseRequestsController extends Controller
         $purchaserequest->sai_number = $request->input('sai_number');
         $purchaserequest->date = $request->input('date');
         $purchaserequest->purpose = $request->input('purpose');
+        $purchaserequest->type = $request->input('type');
+        $purchaserequest->quarter = $request->input('quarter');
         $purchaserequest->request_origin = $request->input('request_origin');
         $purchaserequest->approved_by = $request->input('approved_by');
         $purchaserequest->save();

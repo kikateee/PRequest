@@ -81,9 +81,79 @@ class SearchController extends Controller
             }else{
                 return redirect('/items')->with('error', 'No results found.');
             }
-            
+        }
+    }
 
+    public function getSearchRequests()
+    {
+        //get keywords input for search
+        $filterBy = Input::get('filterBy');
+        $searchInput = Input::get('searchInput');
+        $quarter = Input::get('quarter');
+        $type = Input::get('type');
+
+        if($filterBy == 'costcenter_name'){
+            $costcenters = CostCenter::select('id')->where($filterBy, $searchInput)->get();
+            $id = $costcenters->pluck('id');
             
+            if(count($costcenters) > 0){
+                $purchaserequests = DB::table('purchase_requests')
+                ->join('cost_centers','cost_centers.id','purchase_requests.costcenter_id')
+                ->join('fund_sources', 'fund_sources.id', 'purchase_requests.fundsource_id')
+                ->select(
+                    'cost_centers.costcenter_name', 
+                    'fund_sources.source', 
+                    'purchase_requests.sai_number', 
+                    'purchase_requests.date',
+                    'purchase_requests.request_origin', 
+                    'purchase_requests.id', 
+                    'purchase_requests.costcenter_id', 
+                    'purchase_requests.fundsource_id',
+                    'purchase_requests.type',
+                    'purchase_requests.quarter',
+                    'purchase_requests.approved_by'
+                )
+                ->where('costcenter_id', $id)
+                ->where('quarter', $quarter)
+                ->where('type', $type)
+                ->orderBy('purchase_requests.id', 'asc')
+                ->paginate(5);
+
+                return view('purchaserequests.costcenters')->with('success', 'Results found.')->with('purchaserequests', $purchaserequests);
+            }else{
+                return redirect('/purchaserequests')->with('error', 'No results found.');
+            }
+        }elseif($filterBy == 'source'){
+            $fundsources = FundSource::select('id')->where($filterBy, $searchInput)->get();
+            $id = $fundsources->pluck('id');
+            
+            if(count($fundsources) > 0){
+                $purchaserequests = DB::table('purchase_requests')
+                ->join('cost_centers','cost_centers.id','purchase_requests.costcenter_id')
+                ->join('fund_sources', 'fund_sources.id', 'purchase_requests.fundsource_id')
+                ->select(
+                    'cost_centers.costcenter_name', 
+                    'fund_sources.source', 
+                    'purchase_requests.sai_number', 
+                    'purchase_requests.date',
+                    'purchase_requests.request_origin', 
+                    'purchase_requests.id', 
+                    'purchase_requests.costcenter_id', 
+                    'purchase_requests.fundsource_id',
+                    'purchase_requests.type',
+                    'purchase_requests.quarter',
+                    'purchase_requests.approved_by'
+                    )
+                ->where('fundsource_id', $id)
+                ->where('quarter', $quarter)
+                ->where('type', $type)
+                ->orderBy('purchase_requests.id', 'asc')
+                ->paginate(5);
+
+                return view('purchaserequests.fundsources')->with('success', 'Results found.')->with('purchaserequests', $purchaserequests);
+            }else{
+                return redirect('/purchaserequests')->with('error', 'No results found.');
+            }
         }
     }
 }

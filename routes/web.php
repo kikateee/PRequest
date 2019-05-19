@@ -29,8 +29,11 @@ Route::resource('fundsources', 'FundSourcesController');
 Route::resource('items', 'ItemsController');
 Route::resource('requestdetails', 'PurchaseRequestDetailsController');
 
-// Route search 
+// Route search for items
 Route::get('/search',['uses' => 'SearchController@getSearch','as' => 'search']);
+
+// Route search for items
+Route::get('/searchRequests',['uses' => 'SearchController@getSearchRequests','as' => 'search']);
 
 // Downloading PDF
 Route::get('/downloadPDF/{id}','PDFController@downloadPDF');
