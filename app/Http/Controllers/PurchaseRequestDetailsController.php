@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Item;
 use App\PurchaseRequest;
 use App\PurchaseRequestDetail;
+use DB;
 
 class PurchaseRequestDetailsController extends Controller
 {
@@ -84,7 +85,31 @@ class PurchaseRequestDetailsController extends Controller
      */
     public function edit($id)
     {
-        //
+        // $items = Item::where('remark', 'Pending');
+        // $items = Item::where('remark', 'Pending')->pluck('remark', 'id', 'description');
+        $items = DB::table('items')
+        ->where('remark', 'Pending')
+        ->select('id', 'description', 'remark')
+        ->get();
+
+        $purchaserequests = PurchaseRequest::where('id', $id)->get();
+
+        $requestdetails = DB::table('purchase_request_details')
+        ->join('items', 'items.id', 'purchase_request_details.item_id')
+        ->select(
+            'items.description', 
+            'purchase_request_details.id', 
+            'purchase_request_details.item_id',
+            'purchase_request_details.quantity',
+            'purchase_request_details.purq_id',
+            'purchase_request_details.estimate_unit_cost',
+            'purchase_request_details.estimated_cost'
+            )->where('purchase_request_details.id', $id)->get();
+
+        return view('requestdetails.edit')
+        ->with('items', $items)
+        ->with('purchaserequests', $purchaserequests)
+        ->with('requestdetails', $requestdetails);
     }
 
     /**
@@ -96,7 +121,37 @@ class PurchaseRequestDetailsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'item_id' => 'required',
+            'quantity' => 'required',
+            'estimate_unit_cost' => 'required'
+        ]);
+
+        // The product of quantity and estimate unit cost
+        $calculatedProduct = $request->input('quantity') * $request->input('estimate_unit_cost');
+
+        // Edit Item Requested
+        $requestdetail = PurchaseRequestDetail::find($id);
+        $requestdetail->item_id = $request->input('item_id');
+        $requestdetail->purq_id = $request->input('purq_id');
+        $requestdetail->quantity = $request->input('quantity');
+        $requestdetail->estimate_unit_cost = $request->input('estimate_unit_cost');
+        $requestdetail->estimated_cost = $calculatedProduct;
+        $requestdetail->save();
+
+        $item_id = $request->input('item_id');
+        $purq_id = $request->input('purq_id');
+        $current_item_id = $request->input('current_item_id');
+
+        $currentItem = Item::find($current_item_id);
+        $currentItem->remark = 'Pending';
+        $currentItem->save();
+
+        $items = Item::find($item_id);
+        $items->remark = 'Requested';
+        $items->save();
+
+        return redirect('/purchaserequests/' . $purq_id)->with('success', 'Item Updated.');
     }
 
     /**

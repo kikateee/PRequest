@@ -112,7 +112,7 @@
                                 <td>Php {{$row->estimate_unit_cost}}/per</td>
                                 <td>Php {{$row->estimated_cost}}</td>
                                 <td>
-                                    <a href="/requestdetails/edit/{{$row->purq_id}}" class="btn btn-outline-secondary btn-sm">Edit</a>
+                                    <a href="/requestdetails/{{$row->id}}/edit" class="btn btn-outline-secondary btn-sm">Edit</a>
                                 </td>
                             </tr>
                             @endforeach

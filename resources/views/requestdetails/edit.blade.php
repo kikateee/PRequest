@@ -3,10 +3,10 @@
 @section('content')
     <div class="row">
         <div class="col">
-            <h1 class="float-left">Purchase Request Details</h1>
+            <h1 class="float-left">Edit Item Requested</h1>
             @foreach($purchaserequests as $row)
                 {{-- <a href="/requestdetails/create/{{$row->id}}" class="btn btn-outline-success float-right" style="margin: 3px;">Add Item</a> --}}
-                <a href="/purchaserequests/{{$row->id}}/edit" class="btn btn-outline-secondary float-right" style="margin: 3px;">Edit</a>
+                {{-- <a href="/purchaserequests/{{$row->id}}/edit" class="btn btn-outline-secondary float-right" style="margin: 3px;">Edit</a> --}}
             @endforeach
             <a href="/purchaserequests" class="btn btn-outline-danger float-right" style="margin: 3px;">Back</a>
             {{-- <a href="/items/create" class="btn btn-success float-right">Add Item</a> --}}
@@ -68,26 +68,46 @@
                     <th>Action</th>
                 </thead>
                 <tbody>
-                    @if(count($requestdetails) > 0)
-                        @foreach($requestdetails as $row)
-                        <tr align="center">
-                            <td>{{$row->description}}</td>
-                            <td>{{$row->quantity}}</td>
-                            <td>Php {{$row->estimate_unit_cost}}/per</td>
-                            <td>Php {{$row->estimated_cost}}</td>
-                            <td>
-                                {!! Form::open(['action' => ['PurchaseRequestsController@destroy', $row->purq_id], 'method' => 'POST']) !!}
-                                    {{Form::hidden('_method', 'DELETE')}}
-                                    {{Form::submit('Remove', ['class' => 'btn btn-outline-danger btn-sm'])}}
-                                {!! Form::close() !!}
-                            </td>
-                        </tr>
-                        @endforeach
-                    @else 
-                        <tr>
-                            <td colspan="5" align="center">No records found.</td>
-                        </tr>
-                    @endif
+                    @foreach($requestdetails as $form)
+                    {!! Form::open(['action' => ['PurchaseRequestDetailsController@update', $form->id], 'method' => 'POST']) !!}
+                    @endforeach
+                        @method('PATCH')
+                        @csrf
+                        @if(count($requestdetails) > 0)
+                            @foreach($requestdetails as $row)
+                            <tr align="center">
+                                <td>
+                                    {{ Form::hidden('current_item_id', $row->item_id)}}
+                                    <select name="item_id" class="form-control">
+                                        <optgroup label="Current">
+                                            <option value="{{$row->item_id}}">{{$row->description}}</option>
+                                        </optgroup>
+                                        <optgroup label="Select New">
+                                            @foreach($items as $edit)
+                                                <option value="{{$edit->id}}">{{$edit->description}}</option>
+                                            @endforeach
+                                        </optgroup>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input min="0" type="number" name="quantity" class="form-control" value="{{$row->quantity}}">
+                                </td>
+                                <td>
+                                    <input min="0" type="number" name="estimate_unit_cost" class="form-control" value="{{$row->estimate_unit_cost}}">
+                                </td>
+                                <td>Php {{$row->estimated_cost}}</td>
+                                <td>
+                                    {{Form::submit('Update', ['class' => 'btn btn-success'])}}
+                                    {{Form::hidden('purq_id', $row->purq_id)}}
+                                </td>
+                            </tr>
+                            @endforeach
+                    {!! Form::close() !!}
+                        @else 
+                            <tr>
+                                <td colspan="5" align="center">No records found.</td>
+                            </tr>
+                        @endif
                 </tbody>
             </table>
         </div>
