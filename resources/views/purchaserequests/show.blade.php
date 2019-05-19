@@ -47,6 +47,12 @@
                     <td>{{$row->approved_by}}</td>
                 </tr>
                 <tr>
+                    <td style="font-weight: bold;" align="right">Export to</td>
+                    <td>
+                        <a href="{{action('PDFController@downloadPDF', $row->id)}}" style="margin: 3px;">PDF</a>
+                    </td>
+                </tr>
+                <tr>
                     <td style="font-weight: bold;" colspan="2">Purpose:</td>
                 </tr>
                 <tr>
@@ -54,8 +60,6 @@
                 </tr>
                 @endforeach
             </table>
-            <hr>
-            <a href="{{action('PDFController@downloadPDF', $row->id)}}" class="btn btn-primary float-right" style="margin: 3px;">Download PDF</a>
         </div>
         <div class="col-7">
             <h3>Items</h3>
@@ -92,4 +96,5 @@
             </table>
         </div>
     </div>
+    <hr>
 @endsection
