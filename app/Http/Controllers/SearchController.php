@@ -20,27 +20,15 @@ class SearchController extends Controller
         $type = Input::get('type');
 
         if($filterBy == 'costcenter_name'){
-            $costcenters = CostCenter::select('id')->where($filterBy, $searchInput)->get();
+            // $costcenters = CostCenter::select('id')->where($filterBy, $searchInput)->get();
+            $costcenters = CostCenter::where($filterBy, 'ILIKE', '%'.$searchInput.'%')->get();
             $id = $costcenters->pluck('id');
             
             if(count($costcenters) > 0){
                 $items = DB::table('items')
                 ->join('cost_centers','cost_centers.id','items.costcenter_id')
                 ->join('fund_sources', 'fund_sources.id', 'items.fundsource_id')
-                ->select(
-                    'cost_centers.costcenter_name', 
-                    'fund_sources.source', 
-                    'items.description', 
-                    'items.stock',
-                    'items.unit_of_issue', 
-                    'items.id', 
-                    'items.costcenter_id', 
-                    'items.fundsource_id',
-                    'items.type',
-                    'items.quarter',
-                    'items.remark'
-                )
-                ->where('costcenter_id', $id)
+                ->where('costcenter_name', 'ILIKE', '%'.$searchInput.'%')
                 ->where('quarter', $quarter)
                 ->where('type', $type)
                 ->orderBy('items.id', 'asc')
@@ -51,27 +39,14 @@ class SearchController extends Controller
                 return redirect('/items')->with('error', 'No results found.');
             }
         }elseif($filterBy == 'source'){
-            $fundsources = FundSource::select('id')->where($filterBy, $searchInput)->get();
+            $fundsources = FundSource::where($filterBy, 'ILIKE', '%'.$searchInput.'%')->get();
             $id = $fundsources->pluck('id');
             
             if(count($fundsources) > 0){
                 $items = DB::table('items')
                 ->join('cost_centers','cost_centers.id','items.costcenter_id')
                 ->join('fund_sources', 'fund_sources.id', 'items.fundsource_id')
-                ->select(
-                    'cost_centers.costcenter_name', 
-                    'fund_sources.source', 
-                    'items.description', 
-                    'items.stock',
-                    'items.unit_of_issue', 
-                    'items.id', 
-                    'items.costcenter_id', 
-                    'items.fundsource_id',
-                    'items.type',
-                    'items.quarter',
-                    'items.remark'
-                    )
-                ->where('fundsource_id', $id)
+                ->where('source', 'ILIKE', '%'.$searchInput.'%')
                 ->where('quarter', $quarter)
                 ->where('type', $type)
                 ->orderBy('items.id', 'asc')
@@ -93,27 +68,14 @@ class SearchController extends Controller
         $type = Input::get('type');
 
         if($filterBy == 'costcenter_name'){
-            $costcenters = CostCenter::select('id')->where($filterBy, $searchInput)->get();
+            $costcenters = CostCenter::where($filterBy, 'LIKE', '%'.$searchInput.'%')->get();
             $id = $costcenters->pluck('id');
             
             if(count($costcenters) > 0){
                 $purchaserequests = DB::table('purchase_requests')
                 ->join('cost_centers','cost_centers.id','purchase_requests.costcenter_id')
                 ->join('fund_sources', 'fund_sources.id', 'purchase_requests.fundsource_id')
-                ->select(
-                    'cost_centers.costcenter_name', 
-                    'fund_sources.source', 
-                    'purchase_requests.sai_number', 
-                    'purchase_requests.date',
-                    'purchase_requests.request_origin', 
-                    'purchase_requests.id', 
-                    'purchase_requests.costcenter_id', 
-                    'purchase_requests.fundsource_id',
-                    'purchase_requests.type',
-                    'purchase_requests.quarter',
-                    'purchase_requests.approved_by'
-                )
-                ->where('costcenter_id', $id)
+                ->where('cost_centers.costcenter_name', 'ilike', '%'.$searchInput.'%')
                 ->where('quarter', $quarter)
                 ->where('type', $type)
                 ->orderBy('purchase_requests.id', 'asc')
@@ -121,30 +83,17 @@ class SearchController extends Controller
 
                 return view('purchaserequests.costcenters')->with('success', 'Results found.')->with('purchaserequests', $purchaserequests);
             }else{
-                return redirect('/purchaserequests')->with('error', 'No results found.');
+                return redirect('/purchaserequests')->with('error', 'No results found. :(');
             }
         }elseif($filterBy == 'source'){
-            $fundsources = FundSource::select('id')->where($filterBy, $searchInput)->get();
+            $fundsources = FundSource::where($filterBy, 'LIKE', '%'.$searchInput.'%')->get();
             $id = $fundsources->pluck('id');
             
             if(count($fundsources) > 0){
                 $purchaserequests = DB::table('purchase_requests')
                 ->join('cost_centers','cost_centers.id','purchase_requests.costcenter_id')
                 ->join('fund_sources', 'fund_sources.id', 'purchase_requests.fundsource_id')
-                ->select(
-                    'cost_centers.costcenter_name', 
-                    'fund_sources.source', 
-                    'purchase_requests.sai_number', 
-                    'purchase_requests.date',
-                    'purchase_requests.request_origin', 
-                    'purchase_requests.id', 
-                    'purchase_requests.costcenter_id', 
-                    'purchase_requests.fundsource_id',
-                    'purchase_requests.type',
-                    'purchase_requests.quarter',
-                    'purchase_requests.approved_by'
-                    )
-                ->where('fundsource_id', $id)
+                ->where('source', 'ILIKE', '%'.$searchInput.'%')
                 ->where('quarter', $quarter)
                 ->where('type', $type)
                 ->orderBy('purchase_requests.id', 'asc')
@@ -152,7 +101,7 @@ class SearchController extends Controller
 
                 return view('purchaserequests.fundsources')->with('success', 'Results found.')->with('purchaserequests', $purchaserequests);
             }else{
-                return redirect('/purchaserequests')->with('error', 'No results found.');
+                return redirect('/purchaserequests')->with('error', 'No results found. :p');
             }
         }
     }
