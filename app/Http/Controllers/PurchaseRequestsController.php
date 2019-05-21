@@ -138,7 +138,7 @@ class PurchaseRequestsController extends Controller
         ->join('fund_sources', 'fund_sources.id', 'purchase_requests.fundsource_id')
         ->select('cost_centers.costcenter_name', 'fund_sources.source', 'purchase_requests.sai_number', 'purchase_requests.purpose'
         ,'purchase_requests.request_origin', 'purchase_requests.approved_by', 'purchase_requests.costcenter_id', 'purchase_requests.fundsource_id',
-        'purchase_requests.id', 'purchase_requests.date')
+        'purchase_requests.id', 'purchase_requests.date', 'purchase_requests.type', 'purchase_requests.quarter')
         ->where('purchase_requests.id', $id)
         ->get();
 

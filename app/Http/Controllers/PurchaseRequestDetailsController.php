@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 use App\Item;
 use App\PurchaseRequest;
 use App\PurchaseRequestDetail;
@@ -64,6 +65,12 @@ class PurchaseRequestDetailsController extends Controller
         $requestdetail->estimate_unit_cost = $request->input('estimate_unit_cost');
         $requestdetail->estimated_cost = $calculatedProduct;
         $requestdetail->save();
+
+        $item_id = $request->input('item_id');
+
+        $items = Item::find($item_id);
+        $items->remark = "Requested";
+        $items->save();
 
         // Fetching the request ID
         $requestId = $requestdetail->purq_id;
@@ -167,22 +174,24 @@ class PurchaseRequestDetailsController extends Controller
      */
     public function destroy($id)
     {
+        $purq_id = Input::get('purq_id');
+
         // Fetching the Item ID
-        $item_id = DB::table('purchase_request_details')
-        ->where('purq_id', $id)
+        $item = DB::table('purchase_request_details')
+        ->where('item_id', $id)
         ->select('item_id')->value('item_id');
 
-        if($item_id > 0){
-            $items = Item::find($item_id);
+        if($item > 0){
+            $items = Item::find($id);
             $items->remark = 'Pending';
             $items->save();
 
-            $requestdetails = PurchaseRequestDetail::find($id);
+            $requestdetails = PurchaseRequestDetail::where('purq_id', $purq_id)->first();
             $requestdetails->delete();
 
-            return redirect('/purchaserequests/'.$id)->with('success', 'Item Deleted');
+            return redirect('/purchaserequests/'.$purq_id)->with('success', 'Item Deleted');
         }else{
-            return redirect('/purchaserequests/'.$id)->with('error', 'Some error occured.');
+            return redirect('/purchaserequests/'.$purq_id)->with('error', 'Some error occured.');
         }
     }
 }

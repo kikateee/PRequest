@@ -46,6 +46,13 @@
                     <td style="font-weight: bold;" align="right">Approved By</td>
                     <td>{{$row->approved_by}}</td>
                 </tr>
+                    <td style="font-weight: bold;" align="right">Type</td>
+                    <td>{{$row->type}}</td>
+                </tr>
+                </tr>
+                    <td style="font-weight: bold;" align="right">Quarter</td>
+                    <td>{{$row->quarter}}</td>
+                </tr>        
                 <tr>
                     <td style="font-weight: bold;" align="right">Export to</td>
                     <td>
@@ -80,7 +87,8 @@
                             <td>Php {{$row->estimate_unit_cost}}/per</td>
                             <td>Php {{$row->estimated_cost}}</td>
                             <td>
-                                {!! Form::open(['action' => ['PurchaseRequestDetailsController@destroy', $row->purq_id], 'method' => 'POST']) !!}
+                                {!! Form::open(['action' => ['PurchaseRequestDetailsController@destroy', $row->item_id], 'method' => 'POST']) !!}
+                                    {{Form::hidden('purq_id', $row->purq_id)}}    
                                     {{Form::hidden('_method', 'DELETE')}}
                                     {{Form::submit('Remove', ['class' => 'btn btn-outline-danger btn-sm'])}}
                                 {!! Form::close() !!}
