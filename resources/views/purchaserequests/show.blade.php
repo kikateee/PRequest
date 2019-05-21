@@ -5,7 +5,7 @@
         <div class="col">
             <h1 class="float-left">Purchase Request Details</h1>
             @foreach($purchaserequests as $row)
-                {{-- <a href="/requestdetails/create/{{$row->id}}" class="btn btn-outline-success float-right" style="margin: 3px;">Add Item</a> --}}
+                <a href="/requestdetails/create/{{$row->id}}" class="btn btn-outline-success float-right" style="margin: 3px;">Add Item</a>
                 <a href="/purchaserequests/{{$row->id}}/edit" class="btn btn-outline-secondary float-right" style="margin: 3px;">Edit</a>
             @endforeach
             <a href="/purchaserequests" class="btn btn-outline-danger float-right" style="margin: 3px;">Back</a>

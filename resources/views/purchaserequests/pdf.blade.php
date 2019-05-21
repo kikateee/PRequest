@@ -1,72 +1,76 @@
-
-@extends('layouts.pdf')
+@extends('layouts.pdf-v2')
 
 @section('content')
-    <div class="row">
-        <h1>Purchase Request Details</h1>
+    <div id="paper">
+        <div id="logo">
+            <p><img style="width:70px;height:70px;" src="C:\Users\Ixelles\Pictures\iit.png" /></p>
+            <p align="center"><em style="font-size:11px;">Republic of the Philippines</em>
+            <br>
+            Mindanao State University
+            <br>
+            <b>ILIGAN INSTITUTE OF TECHNOLOGY</b>
+            <br>
+            Iligan City</p>
+        </div>
+
+        <h3 align="center">PURCHASE REQUEST</h3>
+        @foreach($purchaserequests as $purq)
+        <div id="content">
+            <p>Cost Center: {{$purq->costcenter_name}}</p>
+            <p>SAI No. : {{$purq->sai_number}}</p>
+        </div>
+
+        <div id="id_date">
+            <p>Purchase No. : {{$purq->id}}</p>
+            <p>Date : {{$purq->date}}</p>
+        </div>
+        @endforeach
+        <div id="tables">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col" style="width:auto"><center>Quantity</center></th>
+                        {{-- <th scope="col" style="width:auto"><center>Unit of issue</center></th> --}}
+                        <th scope="col" style="width:auto"><center>Item description</center></th>
+                        {{-- <th scope="col" style="width:auto"><center>Stock no.</center></th> --}}
+                        <th scope="col" style="width:auto"><center>Estimated Unit Cost</center></th>
+                        <th scope="col" style="width:auto"><center>Estimated Cost</center></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach($requestdetails as $req)
+                    <tr>
+                        <td>{{$req->quantity}}</td>
+                        {{-- <td><center>{{$req->estimate_unit_cost}}</center></td> --}}
+                        {{-- <td><center>{{$req->unit_of_issue}}</center></td> --}}
+                        <td>{{$req->description}}</td>
+                        <td><center>{{$req->estimate_unit_cost}}</center></td>
+                        <td><center>{{$req->estimated_cost}}</center></td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+        @foreach($purchaserequests as $purq)
+        <div id="content">
+            <p>Purpose: {{$purq->purpose}}</p>
+            {{-- <br><br> --}}
+            <p>Source of Funds: {{$purq->source}}</p>
+        </div>
+        <br><br><br><br><br><br>
+        <div id="sign1">
+            <p>Requested by:</p>
+            <p>________________________<br></p>
+        </div>
+
+        <div id="sign">
+            <p>Approved:</p>
+            <p>________________________<br></p>
+        </div>
+        @endforeach
+        <br>
+        <br>
+        <br>
     </div>
-    <table class="table table-bordered">
-        <tr>
-            <td colspan="2">Information</td>
-        </tr>
-            @foreach($purchaserequests as $row)
-                <tr>
-                    <td style="font-weight: bold;">Purchase Request #</td>
-                    <td>{{$row->id}}</td>
-                </tr>
-                <tr>
-                    <td style="font-weight: bold;">Cost Center</td>
-                    <td>{{$row->costcenter_name}}</td>
-                </tr>
-                <tr>
-                    <td style="font-weight: bold;">Fund Source</td>
-                    <td>{{$row->source}}</td>
-                </tr>
-                <tr>
-                    <td style="font-weight: bold;">SAI Number</td>
-                    <td>{{$row->sai_number}}</td>
-                </tr>
-                <tr>
-                    <td style="font-weight: bold;">Date</td>
-                    <td>{{$row->date}}</td>
-                </tr>
-                <tr>
-                    <td style="font-weight: bold;">Request Origin</td>
-                    <td>{{$row->request_origin}}</td>
-                </tr>
-                <tr>
-                    <td style="font-weight: bold;">Approved By</td>
-                    <td>{{$row->approved_by}}</td>
-                </tr>
-                <tr>
-                    <td style="font-weight: bold;" colspan="2">Purpose:</td>
-                </tr>
-                <tr>
-                    <td colspan="2">{{$row->purpose}}</td>
-                </tr>
-            @endforeach
-            <tr>
-                <td colspan="2">Items</td>
-            </tr>
-            @if(count($requestdetails) > 0)
-                @foreach($requestdetails as $row)
-                <tr>
-                    <td style="font-weight: bold;">Description</td>
-                    <td>{{$row->description}}</td>
-                </tr>
-                <tr>
-                    <td style="font-weight: bold;">Quantity</td>
-                    <td>{{$row->quantity}}</td>
-                </tr>
-                <tr>
-                    <td style="font-weight: bold;">Estimated Unit Cost</td>
-                    <td>Php {{$row->estimate_unit_cost}}/per</td>
-                </tr>
-                <tr>
-                    <td style="font-weight: bold;">Estimated Cost</td>
-                    <td>Php {{$row->estimated_cost}}</td>
-                </tr>
-                @endforeach
-            @endif
-    </table>
 @endsection

@@ -27,10 +27,15 @@ class PurchaseRequestDetailsController extends Controller
      */
     public function create($id)
     {
-        $items = Item::all(['id', 'description']);
+        // $items = Item::all(['id', 'description']);
+        // $type = PurchaseRequest::where('id', $id)->where('type', )
         $purchaserequests = PurchaseRequest::where('id', $id)->get();
+        $type = PurchaseRequest::where('id', $id)->value('type');
+        $quarter = PurchaseRequest::where('id', $id)->value('quarter');
+        $items = Item::where('type', $type)->where('quarter', $quarter)->where('remark', "Pending")->get();
 
-        return view('requestdetails.create')->with('items', $items)->with('purchaserequests', $purchaserequests);
+        return view('requestdetails.create')
+        ->with('items', $items)->with('purchaserequests', $purchaserequests);
     }
 
     /**

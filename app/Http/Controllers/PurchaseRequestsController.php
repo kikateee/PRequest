@@ -55,6 +55,7 @@ class PurchaseRequestsController extends Controller
      */
     public function create($item_id, $costcenter_id, $fundsource_id)
     {
+        // $purchaserequest = DB::table('purchaserequests')
         // $costcenters = CostCenter::all(['id', 'costcenter_name']);
         // $fundsources = FundSource::all(['id', 'description']);
         // $items = Item::all(['id', 'description']);
